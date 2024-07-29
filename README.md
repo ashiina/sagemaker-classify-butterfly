@@ -28,6 +28,9 @@ The hyperparameters are chosen arbitarily as common practice and also relatively
 ## Setup Instructions
 
 1. Download the dataset from Kaggle and unzip it in the repo's folder
+```
+unzip /path/to/archive.zip -d dataset
+```
 1. Create a virtual environment 
 ```
 source venv.sh
@@ -36,7 +39,26 @@ source venv.sh
 ```
 pip install -r requirements.txt
 ```
-
+1. Process the dataset's folder structure 
+```
+python restructure_dataset.py
+```
+1. Create .lst files
+```
+python generate_lst.py
+```
+1. Run training script *Rewrite the bucket names and other constants
+```
+python train_deploy.py
+```
+1. Invoke inference (e.g. with AWS CLI)
+```
+aws sagemaker-runtime invoke-endpoint \
+    --endpoint-name "classify-butterfly" \       
+    --body fileb://dataset/test/Image_999.jpg \
+    --content-type "image/jpeg" \
+    output_file.txt
+```
 
 
 
